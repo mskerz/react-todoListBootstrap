@@ -1,0 +1,71 @@
+import React, { useState } from 'react'
+import TodoInput from './TodoInput';
+import TodoList from './TodoList';
+function Todo() {
+
+    const [todos, setTodos] = useState([]);
+    const [id, setId] = useState(1);
+    const [filter, setFilter] = useState('all');
+    const [active, setActive] = useState(false);
+
+    const filterTodo = todos.filter((todo) => {
+        switch (filter) {
+            case 'completed':
+                return todo.completed;
+            case 'incomplete':
+                return !todo.completed;
+            default:
+                return true;
+        }
+    });
+
+    // ฟังก์ชันเมื่อปุ่มถูกคลิก
+    const handleClick = () => {
+        setActive(!active); // เปลี่ยนสถานะเมื่อถูกกด
+    };
+
+
+    const addTodo = (todo) => {
+        const newTodo = {
+            id: id,
+            todo: todo,
+            is_complete: false
+        }
+        setTodos([...todos, newTodo]);
+        setId(id + 1)
+
+    }
+
+    const removeTodo = (id) => {
+        setTodos(todos.filter((todo) => todo.id !== id))
+    }
+
+    const toggleCompleted = (id) => {
+        const completedTodos = todos.map((todo) => todo.id === id ? { ...todo, is_complete: !todo.is_complete } : todo)
+
+        setTodos(completedTodos);
+    }
+    return (
+        <div className="container">
+            <div className="justify-content-center align-items-center">
+                <h3>Todo App</h3>
+                <div>
+
+
+                    <TodoInput addTodo={addTodo} />
+                    <div className="d-flex flex-row">
+                        <div><button onClick={() => setFilter("all")} className={`btn btn-outline-dark ${filter === 'all' ? 'active' : ''}`}>All</button></div>
+                        <div><button onClick={() => setFilter("completed")} className={`btn btn-outline-dark ${filter === 'completed' ? 'active' : ''}`} >Completed</button></div>
+                        <div><button onClick={() => setFilter("incomplete")} className={`btn btn-outline-dark ${filter === 'incomplete' ? 'active' : ''}`}>Incomplete</button></div>
+                    </div>
+                    <TodoList todoList={filterTodo} deleteTodo={removeTodo} toggleComplete={toggleCompleted} />
+                </div>
+            </div>
+
+
+        </div>
+
+    )
+}
+
+export default Todo

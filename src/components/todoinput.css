@@ -1,0 +1,13 @@
+
+
+.form-control{
+ margin-right: auto !important;
+}
+
+.form-check-input:checked {
+    background-color: #000000 !important; /* สีเมื่อถูกเลือก */
+    border-color: #000000 !important; /* สีของขอบเมื่อถูกเลือก */
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5) !important; /* เปลี่ยนสี shadow */
+}
+
+ 
