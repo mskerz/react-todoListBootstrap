@@ -6,23 +6,20 @@ function Todo() {
     const [todos, setTodos] = useState([]);
     const [id, setId] = useState(1);
     const [filter, setFilter] = useState('all');
-    const [active, setActive] = useState(false);
 
     const filterTodo = todos.filter((todo) => {
         switch (filter) {
             case 'completed':
-                return todo.completed;
+                return todo.is_complete;
             case 'incomplete':
-                return !todo.completed;
+                return !todo.is_complete;
             default:
                 return true;
         }
     });
 
     // ฟังก์ชันเมื่อปุ่มถูกคลิก
-    const handleClick = () => {
-        setActive(!active); // เปลี่ยนสถานะเมื่อถูกกด
-    };
+
 
 
     const addTodo = (todo) => {
