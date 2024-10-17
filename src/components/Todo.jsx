@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TodoInput from './TodoInput';
 import TodoList from './TodoList';
 function Todo() {
@@ -42,6 +42,24 @@ function Todo() {
 
         setTodos(completedTodos);
     }
+
+
+    useEffect(()=>{
+        const storedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+        setTodos(storedTodos);
+        if (storedTodos.length > 0) {
+            setId(storedTodos[storedTodos.length - 1].id + 1); // Update ID based on last todo
+        }
+    },[])
+
+    useEffect(()=>{
+        if (todos.length > 0) {
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
+
+    },[todos])
+
+
     return (
         <div className="container">
             <div className="justify-content-center align-items-center">
