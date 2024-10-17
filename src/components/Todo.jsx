@@ -34,7 +34,12 @@ function Todo() {
     }
 
     const removeTodo = (id) => {
-        setTodos(todos.filter((todo) => todo.id !== id))
+        const removeTodo = todos.filter((todo) => todo.id !== id)
+        setTodos(removeTodo);
+
+        localStorage.setItem('todos', JSON.stringify(removeTodo));
+
+
     }
 
     const toggleCompleted = (id) => {
